@@ -83,7 +83,7 @@ const id = setTimeout(()=>{
 
 // clearTimeout(id) // 함수를 제거해주는 코드
 
-
+// 따라서 옵셔널체인지를 넣어준다. 
 button?.addEventListener('click',()=>{
   console.log('clicked~!');
 })
