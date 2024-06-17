@@ -1,6 +1,6 @@
-/* ---------------------------------------------------------------------- */
-/* Functions → Declaration                                                */
-/* ---------------------------------------------------------------------- */
+/* ---------------------------- */
+/* Functions → Declaration      */
+/* ---------------------------- */
 
 /*console.log('총 합 = ', 10000 + 8900 + 1360 + 2100);
 console.log('총 합 = ', 21500 + 3200 + 9800 + 4700);
@@ -21,7 +21,7 @@ console.log('총 합 = ', 9000 - 2500 + 5000 + 11900);*/
 
 
 
-function getRandomValue(){
+function getRandomValue(){ // 디폴트 파라미터 실행할 때 쓰는 함수
   return Math.random() > 0.5 ? 1 : 0;
 }
 
@@ -30,8 +30,8 @@ function getRandomValue(){
 function calcPrice(
   priceA,
   priceB,
-  priceC = getRandomValue(), // 디폴트 파라미터 설정
-  priceD = getRandomValue() // 디폴트 파라미터 설정
+  priceC = getRandomValue(), // 디폴트 파라미터 설정, 중요한 것은 ()로 함수를 실행시켜야 한다.
+  priceD = getRandomValue() // 디폴트 파라미터 설정, 중요한 것은 ()로 함수를 실행시켜야 한다.
 ){
 
   // if(priceC === undefined) priceC = 0;
@@ -85,8 +85,8 @@ function rem(pxValue = 0,base = 16){
   return pxValue / base + 'rem';
 }
 
-//parseFloat 
-//parseInt
+//parseFloat : 문자열을 파싱하여 부동소수점 실수를 반환
+//parseInt : 문자열을 파싱하여 특정 진수의 정수를 반환
 
 // Test Driven Development (테스트하는 과정)
 /*console.assert(rem(20) === '1.25rem');
@@ -110,15 +110,16 @@ function setStyle(node, prop, value){
   if(typeof node === 'string') node = document.querySelector(node)
   if(typeof prop !== 'string') throw new Error('setStyle 함수의 두 번째 인수는 문자 타입이어야 합니다.');
   if(!value) throw new Error('setStyle 함수의 세 번째 인수는 필수값 입니다.');
+  if(typeof value !== 'string') throw new Error('setStyle 함수의 세 번째 인수는 문자 타입이어야 입니다.');
 
   node.style[prop] = value; // 해당 prop 변수를 받아서 처리하려면 대괄호 표기법
   console.log(value);
 
-  // setStyle 함수는 undefined가 뜬다. 왜?
-  //setting의 의미를 가지는 함수는 값을 보통 반환(return)이 필요가 없다.
+
+  // setting의 의미를 가지는 함수는 값을 보통 반환(return)이 필요가 없다.
 }
 
-//setStyle('.first', 'color' , 'yellow');
+// setStyle('.second', 'color' , 'pink');
 
 
 /* ------------ getter -------------*/
@@ -126,12 +127,12 @@ function getStyle(node, prop){
   if (typeof node === 'string') node = document.querySelector(node);
   if(typeof prop !== 'string') throw new Error('getStyle 함수의 두 번째 인수는 문자 타입 이어야 합니다.');
 
-  //console.log(getComputedStyle(node)[prop]);
+  console.log(getComputedStyle(node)[prop]);
   return getComputedStyle(node)[prop];
    
 }
 
-// getStyle('.first', 'fontSize'); // 32px // 함수 실행부
+getStyle('.first', 'fontSize'); // 32px // 함수 실행부
 
 
 /*
@@ -146,13 +147,13 @@ function getStyle(node, prop){
 /* ------------ css (setter & getter) -------------*/
 function css(node, prop, value){
  /* 
- if(!value){
+ if(!value){ // value가 없다는건 그냥 조회해서 가져오겠다는 getter
     return getStyle(node, prop); // getter
   }
   */
 
   /*
-  if(value){
+  if(value){ // value가 있다는건 직접 설정하겠다는 setter
     return setStyle(node, prop, value); // setter
   }
   */
@@ -163,9 +164,9 @@ function css(node, prop, value){
 
 // const css2 = (node,prop,value) => !value ? getStyle(node,prop) : setStyle(node,prop,value);
 
-css('.first','color','red') // setter
+// css('.third','color','red') // setter
 
-css('.first','color') // getter
+// css('.first','color') // getter
 
 
 

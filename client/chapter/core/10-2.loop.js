@@ -44,16 +44,25 @@ do{
 
 // do ~ while 문 (순환)
 // - 위 do ~ while 문을 순방향으로 순환되도록 설정
-// 여기 질문하기!
-let loopValue = +prompt('몇 번??');
+
+/*let loopValue = +prompt('몇 번??');
 
 let count = 0;
 
 do{
-  console.log(count++);
-}while(loopValue--)
+  console.log(++count); // 선할당 후증가
+}while(--loopValue) // 선할당 후감소*/
 
 
+// 윗 코드 동작 방식
+// loopValue에 3 입력 
+// let count = 0;
+
+// count 1
+// if (loopValue = 2) count 2
+// if (loopValue = 1) count 3
+// if (loopValue = 0) 
+// 1 2 3
 
 
 
@@ -63,15 +72,59 @@ do{
 
 /* -------------------- */
 /* HTML 클래스로 접근해보기 */
+/* -------------------- */
 
-// 1차(오류남)
-/*let first = document.querySelector(`.${first}`);
 
-do {
-  first = first.nextSibling;
-  
-} while(first.nodeType !== 1 )
+/*const first = document.querySelector('.first');
+
+
+function next(node){
+  if(typeof node === 'string') node = document.querySelector(node) // 문자열 '.first'
+  // validation -> 확인
+
+  do{
+    node = node.nextSibling; // 다음 형제 노드 선택
+  }while(node.nodeType !== 1) // 요소 노드가 아니면 본문 실행. 요소 노드면 멈춤. -> 즉, 요소 노드 만날 때까지  반복적으로 nextSibling을 호출
+
+  return node
+}
+
+
+const second = next('.first') // .second
 */
+
+
+
+
+
+// 내가 따로 first라고 변수 지정 안하고 바로 문자열 넣으면 다음 형제 호출해주면 좋겠다!
+// .네이밍 함수
+/*function next1(element){
+  let element2 = document.querySelector(element);
+
+  do{
+    element2 = element2.nextSibling; // 다음 형제 노드 선택
+  }while(element2.nodeType !== 1) // 요소 노드가 아니면 본문 실행. 요소 노드면 멈춤. -> 즉, 요소 노드 만날 때까지  반복적으로 nextSibling을 호출
+
+  return element2
+}*/
+
+
+// . 안붙이고 그냥 바로 네이밍 쓰는 함수
+/*function next2(element){
+  let element2 = document.querySelector(`.${element}`);
+
+  do{
+    element2 = element2.nextSibling; // 다음 형제 노드 선택
+  }while(element2.nodeType !== 1) // 요소 노드가 아니면 본문 실행. 요소 노드면 멈춤. -> 즉, 요소 노드 만날 때까지  반복적으로 nextSibling을 호출
+
+  return element2
+}*/
+// console.log(next1("second"));
+
+
+
+
 
 
 /* 주원님 코드 */
@@ -84,11 +137,11 @@ do {
     return node;
 }
 
-console.log(next("second"));
-*/
+console.log(next("second"));*/
 
 
-// 범쌤
+
+/* 범쌤 코드 */
 /*let second = document.querySelector('.second');
 
 function prev(node) {
@@ -100,10 +153,6 @@ function prev(node) {
   // string 형으로 들어왔을 때에만 if문 안의 DOM요소 선택(querySelector)을 진행해줌.
   // 위에서 할당해 둔 second 변수를 매개변수로 전달받으면 이미 DOM요소가 선택되어있어서 다시 안하는 것
   if (typeof node === 'string') { // validation -> 확인
-
-    // 아래에서 prev('.second') 이렇게 함수를 호출하면
-    // let node = document.querySelector('.second');
-    // 처럼 됨
     node = document.querySelector(node);
   }
 
@@ -112,21 +161,18 @@ function prev(node) {
   } while (node.nodeType !== 1);
 
   return node;
+}*/
+
+
+// break/continue와 레이블 사용하기
+let input;
+
+outer: for (let i = 0; i < 3; i++) {
+  for (let j = 0; j < 3; j++) {
+    input = prompt(`(${i},${j})의 값`, '');
+    if (!input) break outer; // (*)
+  } 
 }
 
-let first = prev(second);*/
-
-
-/*function prev(node){
-
-  if(typeof node === 'string'){
-    node = document.querySelector;
-  }
-  
-  do{
-    node = node.previousSibling;
-  }while(node.nodeType ==! 1)
-  return node
-}
-
-const previous = prev('.second')*/
+alert('완료!');
+console.log(input);

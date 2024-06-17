@@ -19,20 +19,46 @@
 
 
 
+
+/*var x = 1;
+
+function foo(){
+    var x = 10;
+    bar();
+}
+
+function bar(){
+    console.log(x);
+}
+
+foo();
+bar();*/
+
+
+
+
+
+
+
+
 // 함수 선언 → 일반 함수 (표현)식
 let calculateTotal = function(){
 
-  // 함수 안에서만 접근 가능한 입수들의 집합 객체(argumnets)로서 배열과 유사하여 0000 이라 불리는 지역변수
+  // arguments : 자바스크립트 함수 안에서만 사용 가능한 입수들의 집합 객체
+  // - 배열과 유사하지만 배열이 아님(배열 메서드 사용 불가)
+  // - 함수에 전달한 모든 임수가 포함되며, 매개변수로 명시적으로 선언되지 않은 인수들도 포함
+  // - 함수 내 지역 변수처럼 사용
+
   let total = 0;
   
-  
   /*---------- for 문 ------------*/
-  for(let i = 0; i < arguments.length; i++){
+  /*for(let i = 0; i < arguments.length; i++){
     // total = total + arguments[i];
     total += arguments[i];
-  }
+  }*/
   
-  
+ 
+
   /*--------- for..of 문 -----------*/
   /*for(let argument of arguments){
     total = total + argument;
@@ -85,7 +111,7 @@ let calculateTotal = function(){
 
 
 const result = calculateTotal(1000, 5000, 2500, 4000, 2300);
-console.log(result);
+// console.log(result);
 
 
 
@@ -107,11 +133,45 @@ const mapValue = arr.map(function(item, index){
   return item * 2
 })
 
-console.log(mapValue);
+// console.log(mapValue);
 
 //[1000, 5000, 2500].forEach(function(a){})
 
 
+
+
+/* ===============================================================*/
+/* ===============================================================*/
+
+// 유명(이름을 가진) 함수 (표현)식
+/*let bar = function func(name) {
+  if (name) {
+    console.log(`Hi, ${name}`);
+  } else {
+    func("human"); // func를 사용해서 자신을 호출합니다.
+  }
+};
+
+bar(); // Hi, human
+
+// 하지만 아래와 같이 func를 호출하는 건 불가능합니다.
+func(); // 'func' is not defined. (기명 함수 표현식 밖에서는 그 이름에 접근할 수 없습니다.)*/
+
+
+// 익명(이름이 없는) 함수 (표현)식
+/*let bar = function(name) {
+  if (name) {
+    console.log(`Hi, ${name}`);
+  } else {
+    bar("human"); // TypeError: bar is not a function
+  }
+};
+
+let sayHi = bar;
+bar = null;
+
+sayHi(); // 중첩 sayHi 호출은 더 이상 불가능합니다!
+*/
 
 
 /* ===============================================================*/
@@ -153,7 +213,7 @@ function movePage(url, success, fail){
   }
 }
 
-movePage(
+/*movePage(
   'https://www.naver.com',
   function (inputUrl){
     //console.log(url);
@@ -162,12 +222,12 @@ movePage(
   function (){
     console.log('잘못된 url을 입력하셨습니다.');
   }
-)
+)*/
 
 /* ===============================================================*/
 /* ===============================================================*/
 // higher-order function 고차함수
-function map(arr,func){
+/*function map(arr,func){
   let result = [];
   for(let i = 0; i < arr.length; i++){
     result.push(func(arr[i]))
@@ -175,7 +235,7 @@ function map(arr,func){
 
   return result
 }
-
+*/
 // 함수를 인수로 받아 처리함. (콜백과 동일)
 // 함수를 리턴함 (고차함수)
 // 콜백함수를 이렇게 처리하고 끝나고 고차함수는 그걸 다음 함수에 사용하는게 고차함수
@@ -218,7 +278,7 @@ let IIFE;
 // uuid라는 변수를 꽁꽁 싸매서 보호 (바깥에서는 절대 접근 할 수 없음)
 // 접근하기 위해서는 getKey()와 setKey()를 통해서만 접근 가능 ...이런 것도 클로저
 // 요새는 잘안씀. 왜? 이제는 모듈프로그래밍이 가능하기 때문. (import, export)구문이 이를 가능케 함.
-const MASTER = (function (word){
+/*const MASTER = (function (word){
 
   let uuid = 'azxcqwASFqjKJ112314!23'
   
@@ -232,9 +292,9 @@ const MASTER = (function (word){
   }
 
 })('a');
-
-MASTER.getKey() // 이렇게 해야지 uuid 값 얻음  -> 원본 값 훼손하지 않음
-MASTER.setKey() // 이렇게 해야지 uuid 값 얻음  -> 원본 값 훼손하지 않음
+*/
+// MASTER.getKey() // 이렇게 해야지 uuid 값 얻음  -> 원본 값 훼손하지 않음
+// MASTER.setKey() // 이렇게 해야지 uuid 값 얻음  -> 원본 값 훼손하지 않음
 
 
 /* ------------------- 복습 하기! ---------------------*/

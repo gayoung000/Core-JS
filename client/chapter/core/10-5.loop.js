@@ -13,14 +13,20 @@
 // 2. []
 // 3. length
 
+/*for(const item of [1, 2, 3]){
+  // item 변수에 순차적으로 1, 2, 3이 할당된다. 
+  console.log(item); // 1, 2, 3
+}*/
+
+
 // 유사 배열 : 배열처럼 생겼지만 배열이 아니다.
 const arrayLike = {
   0 : 'body',
   1 : 'head',
   2 : 'div',
-  length : 3,
+  length : 3
  //  Symbol[Symbo.iterablel](){}
-}
+};
 
 /*for(let value of 'hello'){
   console.log(value);
@@ -29,8 +35,8 @@ const arrayLike = {
 // arrayLike is not iterable 이란 에러 메시지가 뜸
 /*for(let value of arrayLike){
   console.log(value);
-}
-*/
+}*/
+
 
 
 const languages = [
@@ -65,12 +71,12 @@ const languages = [
 // - 특정 조건에서 건너띄기 (Java 문자 포함 시) continue
 // - 특정 조건에서 중단하기 break
 
-/*for(let value of languages){
+for(let value of languages){
   let name = value.name;
   
   if(name.includes('Java') && name.length < 5) continue
-  console.table(value);
-}*/
+  // console.table(value);
+}
 
 
 
@@ -119,26 +125,26 @@ const randomUser = {
 // Object.entries() => 객체들의 키와 값을 하나의 쌍으로 만들고 이를 '배열로 반환'
 const keys = Object.keys(arrayLike);
 for(let key of keys){
-  console.log(key);
+   // console.log(key);
 }
 
 const values = Object.values(arrayLike);
 for(let value of values){
-  console.log(value);
+  // console.log(value);
 }
 
 const entries = Object.entries(arrayLike);
 for(let keyValue of entries){
-  //let key = keyValue[0];
-  //let value = keyValue[1];
-  //console.log(key);
+  // let key = keyValue[0];
+  // let value = keyValue[1];
+  // console.log(key);
 }
 
 
 
 
 /* --------------- */
-     //예제
+//      예제
 /* --------------- */
 // hasOwnProperty 함수 만들기
 Object.prototype.nickName = 'tiger';
@@ -146,22 +152,23 @@ Object.prototype.nickName = 'tiger';
 
 function hasProperty(obj, key){
   return Object.prototype.hasOwnProperty.call(obj, key);
-  
 }
 
 /*for(let key in randomUser){
   if(hasProperty(randomUser, key)){
     const L1 = randomUser[key];
 
-    if(typeof L1 === 'object'){
+    if(typeof L1 === 'object'){ // 객체 타입만 출력.
       console.log(L1);
     }
   }
 }*/
 
-console.time()
+// console.time()
+
+
 // 완성 코드
-for(let key in randomUser){
+/*for(let key in randomUser){
 
   if(hasProperty(randomUser,key)){
 
@@ -193,7 +200,7 @@ for(let key in randomUser){
       }
     }
   }
-}
+}*/
 
 
 // for ... of로 써보기...
@@ -222,4 +229,4 @@ for(let key in randomUser){
   }
 }*/
 
-console.timeEnd()
+// console.timeEnd()

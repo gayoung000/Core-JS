@@ -52,3 +52,86 @@ class Tiger extends Animal { // 즉, Animal꺼를 상속받아서 생성자 함�
 
 
 
+// Model   (데이터)
+// View    (랜더링)
+// Control (이벤트)
+
+
+class Todo {
+
+  target = null;
+  registerButton = null;
+  list = null;
+  
+  constructor({input,button,renderPlace}){
+    
+    this.target = document.querySelector(input);
+    this.registerButton = document.querySelector(button);
+    this.list = document.querySelector(renderPlace)
+    this.todoListArray = [];
+    this.data;
+
+    this.registerEvent()
+
+    this.target.addEventListener('input',()=>{
+      this.data = this.currentInputTodoData;
+    })
+  }
+
+  get currentInputTodoData(){
+    return this.target.value;
+  }
+
+  set currentInputTodoData(value){
+    this.target.value = value;
+  }
+
+  get todoList(){
+    return this.todoListArray
+  }
+
+  set todoList(value){
+    this.todoList.push(value);
+  }
+
+  #createList(){
+    let template = `
+      <li>${this.data}</li>
+    `
+    return template;
+  }
+
+  render(){ 
+    this.list.insertAdjacentHTML('beforeend',this.#createList());
+    this.target.value = ''
+  }
+  
+  addTodoData(){
+    this.todoList = this.data;
+  }
+
+  registerEvent(){
+    this.registerButton.addEventListener('click',()=>{
+      this.addTodoData()
+      this.render()
+    });
+  }
+
+}
+
+
+
+
+const button = new Todo({
+  input:'#todo',
+  button:'.register',
+  renderPlace:'.todoList'
+})
+
+
+
+const button2 = new Todo({
+  input:'#todo2',
+  button:'.register2',
+  renderPlace:'.todoList2'
+})
