@@ -85,7 +85,7 @@ const customIter = {
     yield 2;
     yield 3;
   }
-}
+};
   
 for(const a of customIter){
     console.log(a);
