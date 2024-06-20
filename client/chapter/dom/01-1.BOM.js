@@ -76,10 +76,15 @@ const { platform, userAgent, language, onLine, geolocation } = navigator;
 })*/
 
 
-// ==== 함수로 만들어보기 ==== //
+// ======================= //
+//       함수로 만들어보기       //
+// ======================= //
 
+// ------------  일반 함수 만들어보기 ------------ //
 // 이러면 undefined 나옴 
-// 왜냐하면 'navigator.geolocation.getCurrentPosition'은 비동기적으로 동작
+// 왜냐하면 'navigator.geolocation.getCurrentPosition'은 비동기적으로 동작하기 때문!
+// getGeolocation 함수는 실행하면 navigator.geolocation.getCurrentPosition을 호출하고 그 즉시, (위치정보는 아직 준비되지 않았는데) return 으로 undefined가 반환된다. 
+
 function getGeolocation(){
   navigator.geolocation.getCurrentPosition((data)=>{
     if(data){
@@ -91,23 +96,26 @@ function getGeolocation(){
       // };
 
       const geo = { lat, long };
-      return geo
+      return geo;
+      // 비동기 함수는 작업이 완료되기 전에 곧바로 반환됩니다. 비동기 작업이 완료되었을 때 실행되는 콜백 함수의 반환 값은 호출한 비동기 함수의 반환 값과 무관합니다.
     }
     else{
       console.error('위치 서비스 동의 하세요');
     }
-  })
+  });
+
 }
 
-console.log(getGeolocation());  // {let:37.15, long:127.561234}
+console.log(getGeolocation());  // {let:37.15, long:127.561234}을 예상했는데, undefined가 나옴.
 
 
-
-
+// ------------  콜백함수 이용하기 ------------ //
 // 콜백함수를 이용해서 매개변수를 함수로 줌. (// movePage (11-2) 참고하기)
-// success 는 함수 본문이 됨.
-// success 함수를 몇 초가 걸리는 비동기 함수 안에서 실행하기!
+// success 는 함수 본문이 되고, success 함수를 비동기 함수 안에서 실행하기!
 // 값이 떨어지는 순간 함수 비동기 안에서 함수를 실행하고 geo를 success(geo)에 전달해주겠다~
+// 즉, 콜백함수를 이용하면 비동기 작업이 완료된 후에 특정 작업을 수행할 수 있다. 
+
+
 
 // 1차
 
@@ -127,29 +135,24 @@ console.log(getGeolocation());  // {let:37.15, long:127.561234}
 }
 
 
-/~getGeolocation(
+getGeolocation(
   (data)=>{
     console.log(data)
   }
 )
-~/
-getGeolocation(
+*/
+
+/*getGeolocation(
   ({lat,long})=>{
     console.log(lat, long)
   }
-)
-*/
-
-
-
-
-
+)*/
 
 
 
 
 // 2차
-function getGeolocation(success, fail){
+/*function getGeolocation(success, fail){
 
   navigator.geolocation.getCurrentPosition((data)=>{
     
@@ -171,7 +174,7 @@ getGeolocation(
   (e) => {
     console.log(e);
   }
-);
+);*/
 
 
 
@@ -212,3 +215,20 @@ const { width, height, availWidth, availHeight, orientation } = screen;
 /* History 객체 ---------------------------------------------------------- */
 
 const { back, forward, go, length, pushState, replaceState } = history;
+
+
+
+
+
+
+
+
+
+
+
+
+// 정리
+// - 콜백 함수는 비동기 작업이 완료된 후 실행됩니다.
+// - 비동기 작업은 웹 API에 의해 처리되며, 완료된 후 콜백 함수가 태스크 큐에 추가됩니다.
+// - 이벤트 루프는 콜 스택이 비어 있을 때 태스크 큐에서 콜백 함수를 가져와 실행합니다.
+// 이 과정을 통해 비동기 작업의 콜백 함수가 적절한 시점에 실행될 수 있습니다.
