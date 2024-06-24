@@ -1,17 +1,44 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko-KR">
   <head>
-    <title>범샘과 함께하는 자바스크립트</title>
+    <title>범쌤과 함께하는 자바스크립트</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="./assets/tiger.svg" type="image/x-icon" />
     <link rel="stylesheet" href="./style.css" />
-    <script src="./main.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script type="module" src="./main.js"></script>
+
   </head>
   <body>
-    <h1>
-      <span>Hello</span>
-      <span>javaScript</span>
-    </h1>
+
+    <form class="calculator">
+      <div class="first">
+        <label for="firstNumber">First Value</label>
+        <input type="number" name="first" id="firstNumber" required/>
+      </div>
+      
+      <div class="operator"> 
+       +
+      </div>
+      
+      <div class="second">
+        <label for="secondNumber">Second Value</label>
+        <input type="number" name="second" id="secondNumber" required/>
+      </div>
+    
+      <input id="clear" type="submit" value="clear"/>
+  
+      <div class="result">
+        -
+      </div>
+  
+    </form>
+
+
+
+
+
   </body>
 </html>
