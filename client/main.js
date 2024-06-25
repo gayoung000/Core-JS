@@ -1,105 +1,92 @@
-import data from "./data/data.js";
-// import clearContents from "./lib/dom/clearContents.js";
+
 import { 
-  copy,
-  shake,
-  getNode, 
-  addClass,
-  showAlert,
-  getRandom, 
-  insertLast, 
-  removeClass,
+  insertLast,
+  attr,
+  getNode,
+  getNodes,
+  diceAnimation,
+  endScroll,
   clearContents,
-  isNumericString,
- } from './lib/index.js';
+ } from "./lib/index.js";
 
 
-
-// [phase-1]
-// 1. 주접 떨기 버튼을 클릭 하는 함수
-//    - 주접 떨기 버튼 가져오기
-//    - 이벤트 연결하기 addEventListener('click')
-
-// 2. input 값 가져오기
-//    - input.value
-
-// 3. data함수에서 주접 1개 꺼내기
-//    - data(name)
-//    - getRandom()
-
-// 4. pick 항목 랜더링하기
-
-// [phase-2]
-// 1. 아무 값도 입력 받지 못했을 때 예외처리 (콘솔 출력)
-
-
-
-const submit = getNode('#submit');
-const nameField = getNode('#nameField');
-const result = getNode('.result');
-
-
-
-const tween = gsap.to('#nameField',{
-  duration:0.1,
-  x:-10,
-  repeat:5,
-  yoyo:true,
-})
+// 1. 주사위 애니메이션
+// 2. 주사위 굴리기 버튼을 클릭하면 diceAnimation() 실행될 수 있도록
 
 
 
 
-function handleSubmit(e){
-  e.preventDefault();
-
-  const name = nameField.value;
-  const list = data(name);
-  const pick = list[getRandom(list.length)];
-  // let output = result.textContent = pick;
+const [rollingButton,recordButton,resetButton] = getNodes('.buttonGroup > button');
+const recordListWrapper  = getNode('.recordListWrapper');
 
 
-  if (!name || name.replace(/\s*/g,'') === ''){
-    showAlert('.alert-error', '공백은 허용하지 않습니다.')
-    shake('#nameField').restart();
-    
-    /*addClass('#nameField', 'shake');
+let count = 0;
+let total = 0;
 
-    setTimeout(()=>{
-      removeClass('#nameField', 'shake');
-    }, 1000);*/
+function createItem(value){  // 값 생성하기
+  const template = `
+    <tr>
+      <td>${++count}</td>
+      <td>${value}</td>
+      <td>${total += value}</td>
+    </tr>
+  `
+  return template // 문자 리턴
+}
 
-    tween.play()
+function renderRecordItem(){  // 값을 렌더링하기
+  // const diceValue = getNode('#cube').getAtrribute('dice');
+  const diceValue = +attr(getNode('#cube'), 'dice'); // 문자열을 숫자로 만들기
 
-    return;
-  }
+  
 
+  // 1. insertLast 함수 사용
+  // 2. template 전달
+  insertLast('.recordList tbody', createItem(diceValue))
 
-
-  if(!isNumericString(name)){
-    showAlert('.alert-error','제대로된 이름을 입력해 주세요.');
-    return;
-  }
-
-  clearContents(result);
-  insertLast(result, pick);
+  // 3. diceValue interpolation(보간법) 하기 ex) <td>${diceValue}</td>
+  endScroll(recordListWrapper);
 }
 
 
-function handleCopy(){
-  const text = result.textContent;
 
-  if(nameField.value){
+// closure와 이피패턴
+const handleRollingDice = (() => {
 
-    copy(text)
-    .then(()=>{
-      showAlert('.alert-success','클립보드 복사 완료!');
-    });
-  } 
+  let isClicked = false;
+  let stopAnimation;
+
+  return ()=>{
+    if(!isClicked){
+      stopAnimation  = setInterval(diceAnimation, 100);
+      recordButton.disabled = true;
+      resetButton.disabled = true;
+    }
+    else{
+      clearInterval(stopAnimation);
+      recordButton.disabled = false;
+      resetButton.disabled = false;
+    }
+    isClicked = !isClicked; // toggle
+  }
+})()
+
+
+function handleRecord(){
+  recordListWrapper.hidden = false;
+
+  renderRecordItem()
 }
 
-submit.addEventListener('click', handleSubmit);
-result.addEventListener('click', handleCopy);
 
+function handleReset(){
+  recordListWrapper.hidden = true;
+  clearContents('tbody'); // textContent = '' 한 것.
 
+  count = 0;
+  total = 0;
+}
 
+rollingButton.addEventListener('click',handleRollingDice)
+recordButton.addEventListener('click',handleRecord)
+resetButton.addEventListener('click',handleReset)
