@@ -65,7 +65,7 @@ const shouldRejected = true; // 이게 나중에 비동기통신이 됨
 // 1차
 // 객체를 return하는 형식으로 많이 씀.
 // 프로미스 객체가 떨어짐.
-function delayPr(timeout = 1000){
+/*function delayPr(timeout = 1000){
   return new Promise((resolve,reject)=>{
     setTimeout(()=>{
       if(!shouldRejected){
@@ -75,7 +75,7 @@ function delayPr(timeout = 1000){
       }
     }, timeout)
   })
-}
+}*/
 
 // console.log(delayPr()) // <Promise> 객체 - [[PromiseResult]] : Object
 
