@@ -79,7 +79,7 @@ function createSpinner(size = 100, loadingMessage = '🤫 유저 정보 가져�
   `
 }
 
-function createEmptyCard(size = 200, errorMessage = '데이터가 없습니다ㅑ.'){
+function createEmptyCard(size = 200, errorMessage = '데이터가 없습니다.'){
   return `
     <figure class="empty-user-card">
     <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,5 +132,5 @@ export function renderSpinner(target){
 
 
 export function renderEmptyCard(target){
-  insertLast(target, createSpinner())
+  insertLast(target, createEmptyCard())
 }
